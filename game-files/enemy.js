@@ -11,56 +11,62 @@ class Enemy extends GameObject {
         this.hpIncrease = hpIncrease;
 
         this.inRange = false;
-
         this.alive = true;
 
-        this.innerHitbox = this.outerHitbox.createInnerHitbox(0.5);
+        // Calculate inner circle hitbox based on width and height
+        const center = this.outerHitbox.getCenter();
+        const radius = Math.min(this.outerHitbox.width, this.outerHitbox.height) * 0.25; // Use a quarter of the smallest dimension
+        this.innerHitbox = new CircleHitbox(center.centerX, center.centerY, radius);
 
-        this.movement = {up: false, down: false, left: false, right: false};
+        this.movement = { up: false, down: false, left: false, right: false };
     }
 
     updateEnemy(playerParams, enemies) {
         const currentCenter = this.outerHitbox.getCenter();
         let distanceX = Math.abs(playerParams.playerCenterX - currentCenter.centerX);
         let distanceY = Math.abs(playerParams.playerCenterY - currentCenter.centerY);
-    
+
         let scalingX = 1;
         let scalingY = 1;
-    
+
         if (distanceX > distanceY) scalingY = distanceY / distanceX;
         if (distanceX < distanceY) scalingX = distanceX / distanceY;
-    
+
         let newCenterX = currentCenter.centerX;
         let newCenterY = currentCenter.centerY;
-    
+
         if (currentCenter.centerX < playerParams.playerCenterX)
             newCenterX += this.baseSpeed * this.speedMultiplier * scalingX;
         if (currentCenter.centerX > playerParams.playerCenterX)
             newCenterX -= this.baseSpeed * this.speedMultiplier * scalingX;
-    
-        const newInnerHitboxX = new Hitbox(this.innerHitbox.x, this.innerHitbox.y, this.innerHitbox.width, this.innerHitbox.height);
-        newInnerHitboxX.setCenter(newCenterX, currentCenter.centerY);
-        
+
+        const newOuterHitboxX = new Hitbox(this.outerHitbox.x, this.outerHitbox.y, this.outerHitbox.width, this.outerHitbox.height);
+        newOuterHitboxX.setCenter(newCenterX, this.outerHitbox.getCenter().centerY);
+        const newInnerHitboxX = new CircleHitbox(newOuterHitboxX.getCenter().centerX, newOuterHitboxX.getCenter().centerY, this.innerHitbox.radius);
+
         if (!this.checkInnerCollision(newInnerHitboxX, enemies)) {
-            this.innerHitbox.setCenter(newCenterX, currentCenter.centerY);
-            this.outerHitbox.setCenter(newCenterX, currentCenter.centerY);
+            const newOuterHitboxCenterX = newOuterHitboxX.getCenter().centerX;
+            this.outerHitbox.setCenter(newOuterHitboxCenterX, this.outerHitbox.getCenter().centerY);
+            this.innerHitbox.centerX = newOuterHitboxX.getCenter().centerX;
+            this.innerHitbox.centerY = newOuterHitboxX.getCenter().centerY;
         }
-    
+
         if (currentCenter.centerY < playerParams.playerCenterY)
             newCenterY += this.baseSpeed * this.speedMultiplier * scalingY;
         if (currentCenter.centerY > playerParams.playerCenterY)
             newCenterY -= this.baseSpeed * this.speedMultiplier * scalingY;
-    
-        const newInnerHitboxY = new Hitbox(this.innerHitbox.x, this.innerHitbox.y, this.innerHitbox.width, this.innerHitbox.height);
-        newInnerHitboxY.setCenter(this.innerHitbox.getCenter().centerX, newCenterY);
-        
-        if (!this.checkInnerCollision(newInnerHitboxY, enemies)) {
-            this.innerHitbox.setCenter(this.innerHitbox.getCenter().centerX, newCenterY);
-            this.outerHitbox.setCenter(this.innerHitbox.getCenter().centerX, newCenterY);
-        }
 
+        const newOuterHitboxY = new Hitbox(this.outerHitbox.x, this.outerHitbox.y, this.outerHitbox.width, this.outerHitbox.height);
+        newOuterHitboxY.setCenter(this.outerHitbox.getCenter().centerX, newCenterY);
+        const newInnerHitboxY = new CircleHitbox(newOuterHitboxY.getCenter().centerX, newOuterHitboxY.getCenter().centerY, this.innerHitbox.radius);
+
+        if (!this.checkInnerCollision(newInnerHitboxY, enemies)) {
+            const newOuterHitboxCenterY = newOuterHitboxY.getCenter().centerY;
+            this.outerHitbox.setCenter(this.outerHitbox.getCenter().centerX, newOuterHitboxCenterY);
+            this.innerHitbox.centerX = newOuterHitboxY.getCenter().centerX;
+            this.innerHitbox.centerY = newOuterHitboxY.getCenter().centerY;
+        }
     }
-    
 
     checkInnerCollision(newInnerHitbox, enemies) {
         for (const other of enemies) {
@@ -73,9 +79,9 @@ class Enemy extends GameObject {
     }
 
     killThisEnemy() {
-        this.alive = false
+        this.alive = false;
     }
-    
+
     setInRange(inRange) {
         this.inRange = inRange;
     }
@@ -84,24 +90,25 @@ class Enemy extends GameObject {
         return this.inRange;
     }
 
-    drawColor(ctx, color) { 
+    drawColor(ctx, color) {
         if (this.inRange) {
             //super.drawColor(ctx, 'white');
         } else {
             //super.drawColor(ctx, color);
         }
 
+        // Draw the inner circular hitbox
         ctx.beginPath();
-        ctx.lineWidth = "6";
+        ctx.lineWidth = 6;
         ctx.strokeStyle = "green";
-        ctx.rect(this.innerHitbox.x, this.innerHitbox.y, this.innerHitbox.width, this.innerHitbox.height);
+        ctx.arc(this.innerHitbox.centerX, this.innerHitbox.centerY, this.innerHitbox.radius, 0, Math.PI * 2);
         ctx.stroke();
 
+        // Draw the outer rectangular hitbox
         ctx.beginPath();
-        ctx.lineWidth = "6";
+        ctx.lineWidth = 6;
         ctx.strokeStyle = "blue";
         ctx.rect(this.outerHitbox.x, this.outerHitbox.y, this.outerHitbox.width, this.outerHitbox.height);
         ctx.stroke();
-        
     }
 }
