@@ -1,0 +1,35 @@
+//World Variables
+const VIEWPORT_WIDTH = 1920;
+const VIEWPORT_HEIGHT = 1080;
+
+const ARENA_WIDTH = 3000;
+const ARENA_HEIGHT = 3000;
+
+//Player Variables
+const PLAYER_WIDTH = 128;
+const PLAYER_HEIGHT = 128;
+
+const PLAYER_SPAWN_X = ARENA_WIDTH / 2 - PLAYER_WIDTH / 2;
+const PLAYER_SPAWN_Y = ARENA_HEIGHT / 2 - PLAYER_HEIGHT / 2;
+
+const PLAYER_BASE_SPEED = 12;
+
+const HUNTER_SPEED_MODIFIER = 0.7;
+const HUNTER_HP = 2;
+const HUNTER_RANGE = 1000;
+
+const ARROW_WIDTH = 48;
+const ARROW_HEIGHT = 48;
+const ARROW_SPEED = 24;
+const ARROW_PIERCE = 1;
+
+//Enemy Variables
+const CRAWLER_WIDTH = 96;
+const CRAWLER_HEIGHT = 96;
+
+const CRAWLER_BASE_SPEED = 4;
+
+const CRAWLER_BASE_HP = 20;
+const CRAWLER_BASE_HP_INCREASE = 0.3;
+
+//Misc Variables
