@@ -37,17 +37,7 @@ class Hunter extends Player {
         const directionX = dx / magnitude;
         const directionY = dy / magnitude;
     
-        const projectile = new Projectile(
-            startX - ARROW_WIDTH / 2,
-            startY - ARROW_HEIGHT / 2,
-            ARROW_WIDTH,
-            ARROW_HEIGHT, 
-            HUNTER_RANGE,
-            { dx: directionX, dy: directionY },
-            ARROW_SPEED,
-            ARROW_PIERCE,
-            ARROW_DAMAGE
-        );
+        const projectile = new Arrow(startX, startY, { dx: directionX, dy: directionY });
     
         this.projectiles.push(projectile);
     }

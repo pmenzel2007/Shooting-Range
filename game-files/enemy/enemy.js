@@ -96,12 +96,10 @@ class Enemy extends GameObject {
     }
 
     drawColor(ctx, color) {
-        if (this.inRange) {
-            //super.drawColor(ctx, 'white');
-        } else {
-            //super.drawColor(ctx, color);
-        }
+        super.drawColor(ctx, color);
+        
 
+        /*
         // Draw the inner circular hitbox
         ctx.beginPath();
         ctx.lineWidth = 6;
@@ -115,5 +113,6 @@ class Enemy extends GameObject {
         ctx.strokeStyle = "blue";
         ctx.rect(this.outerHitbox.x, this.outerHitbox.y, this.outerHitbox.width, this.outerHitbox.height);
         ctx.stroke();
+        */
     }
 }

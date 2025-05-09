@@ -30,7 +30,7 @@ const ARROW_DAMAGE = 20;
 const CRAWLER_WIDTH = 96;
 const CRAWLER_HEIGHT = 96;
 
-const CRAWLER_BASE_SPEED = 4;
+const CRAWLER_BASE_SPEED = 6;
 
 const CRAWLER_BASE_HP = 20;
 const CRAWLER_BASE_HP_INCREASE = 0.3;
@@ -43,5 +43,16 @@ const SPRINTER_BASE_SPEED = 12;
 
 const SPRINTER_BASE_HP = 10;
 const SPRINTER_BASE_HP_INCREASE = 0.1;
+
+//Spitter Variables
+const SPITTER_WIDTH = 96;
+const SPITTER_HEIGHT = 96;
+
+const SPITTER_BASE_SPEED = 4;
+
+const SPITTER_BASE_HP = 10;
+const SPITTER_BASE_HP_INCREASE = 0.1;
+
+const SPITTER_RANGE = 700;
 
 //Misc Variables

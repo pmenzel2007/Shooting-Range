@@ -10,4 +10,8 @@ class Sprinter extends Enemy {
     updateEnemy(playerParams, enemies) {
         super.updateEnemy(playerParams, enemies);
     }
+
+    drawColor(ctx, color) {
+        super.drawColor(ctx, 'red');
+    }
 }

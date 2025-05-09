@@ -27,7 +27,7 @@ function onBodyLoad() {
     player = new Hunter();
 
     debugEnemy = new Crawler(200, 200);
-    enemies.push(debugEnemy, new Crawler(400, 400));
+    enemies.push(debugEnemy, new Crawler(400, 400), new Sprinter(2500, 2500), new Spitter(400, 2500));
     console.log(enemies);
 
     camera = new Camera();
@@ -77,7 +77,7 @@ function drawWorld() {
     }
 
     for (const projectile of player.getParams().projectiles) {
-        projectile.drawColor(ctx, 'purple');
+        projectile.drawColor(ctx, 'blue');
     }
 
     ctx.restore();
