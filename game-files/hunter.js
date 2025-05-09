@@ -45,7 +45,8 @@ class Hunter extends Player {
             HUNTER_RANGE,
             { dx: directionX, dy: directionY },
             ARROW_SPEED,
-            ARROW_PIERCE
+            ARROW_PIERCE,
+            ARROW_DAMAGE
         );
     
         this.projectiles.push(projectile);

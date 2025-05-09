@@ -21,9 +21,12 @@ const HUNTER_RANGE = 1000;
 const ARROW_WIDTH = 48;
 const ARROW_HEIGHT = 48;
 const ARROW_SPEED = 24;
-const ARROW_PIERCE = 1;
+const ARROW_PIERCE = 2;
+const ARROW_DAMAGE = 20;
 
 //Enemy Variables
+
+//Crawler Variables
 const CRAWLER_WIDTH = 96;
 const CRAWLER_HEIGHT = 96;
 
@@ -31,5 +34,14 @@ const CRAWLER_BASE_SPEED = 4;
 
 const CRAWLER_BASE_HP = 20;
 const CRAWLER_BASE_HP_INCREASE = 0.3;
+
+//Sprinter Variables
+const SPRINTER_WIDTH = 72;
+const SPRINTER_HEIGHT = 72;
+
+const SPRINTER_BASE_SPEED = 12;
+
+const SPRINTER_BASE_HP = 10;
+const SPRINTER_BASE_HP_INCREASE = 0.1;
 
 //Misc Variables

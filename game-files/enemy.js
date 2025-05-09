@@ -13,9 +13,8 @@ class Enemy extends GameObject {
         this.inRange = false;
         this.alive = true;
 
-        // Calculate inner circle hitbox based on width and height
         const center = this.outerHitbox.getCenter();
-        const radius = Math.min(this.outerHitbox.width, this.outerHitbox.height) * 0.25; // Use a quarter of the smallest dimension
+        const radius = Math.min(this.outerHitbox.width, this.outerHitbox.height) * 0.25;
         this.innerHitbox = new CircleHitbox(center.centerX, center.centerY, radius);
 
         this.movement = { up: false, down: false, left: false, right: false };
@@ -78,8 +77,14 @@ class Enemy extends GameObject {
         return false;
     }
 
-    killThisEnemy() {
-        this.alive = false;
+    afflictDamage(damage) {
+        this.hp -= damage;
+        if (this.hp <= 0)
+            this.alive = false;
+    }
+
+    getAlive() {
+        return this.alive;
     }
 
     setInRange(inRange) {

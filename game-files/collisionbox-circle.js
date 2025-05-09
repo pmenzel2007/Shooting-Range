@@ -18,7 +18,6 @@ class CircleHitbox {
     }
 
     collidesWithRect(rect) {
-        // Clamp circle center to rectangle edges
         const closestX = Math.max(rect.x, Math.min(this.centerX, rect.x + rect.width));
         const closestY = Math.max(rect.y, Math.min(this.centerY, rect.y + rect.height));
         const dx = this.centerX - closestX;
