@@ -10,7 +10,7 @@ class Projectile extends GameObject {
         this.alive = true;
     }
 
-    updateBullet(enemies) {
+    updateProjectile() {
         this.outerHitbox.x += this.direction.dx * this.speed;
         this.outerHitbox.y += this.direction.dy * this.speed;
 

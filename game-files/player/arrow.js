@@ -16,8 +16,8 @@ class Arrow extends Projectile {
         this.hitEnemies = new Set();
     }
 
-    updateBullet(enemies) {
-        super.updateBullet(enemies); // handles movement and range
+    updateProjectile(enemies) {
+        super.updateProjectile();
 
         if (!this.alive) return;
 

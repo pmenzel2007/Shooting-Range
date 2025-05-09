@@ -20,7 +20,7 @@ const HUNTER_RANGE = 1000;
 
 const ARROW_WIDTH = 48;
 const ARROW_HEIGHT = 48;
-const ARROW_SPEED = 24;
+const ARROW_SPEED = 48;
 const ARROW_PIERCE = 2;
 const ARROW_DAMAGE = 20;
 
@@ -54,5 +54,9 @@ const SPITTER_BASE_HP = 10;
 const SPITTER_BASE_HP_INCREASE = 0.1;
 
 const SPITTER_RANGE = 700;
+
+const SPIT_WIDTH = 48;
+const SPIT_HEIGHT = 48;
+const SPIT_SPEED = 36;
 
 //Misc Variables

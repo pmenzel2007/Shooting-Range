@@ -44,7 +44,7 @@ class Hunter extends Player {
 
     updateProjectiles(enemies) {
         for (const projectile of this.projectiles) {
-            projectile.updateBullet(enemies);
+            projectile.updateProjectile(enemies);
         }
 
         this.projectiles = this.projectiles.filter(projectile => projectile.alive);
