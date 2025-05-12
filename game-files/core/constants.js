@@ -2,14 +2,14 @@
 const VIEWPORT_WIDTH = 1920;
 const VIEWPORT_HEIGHT = 1080;
 
-const ARENA_WIDTH = 3000;
-const ARENA_HEIGHT = 3000;
+const ARENA_WIDTH = 6000;
+const ARENA_HEIGHT = 6000;
 
 const STARTING_SPAWN_INTERVAL = 5000;
 const MIN_SPAWN_INTERVAL = 1000;
 const SPAWN_DECREASE_RATE = 0.95;
 const SPAWN_TYPES = ['crawler', 'sprinter', 'spitter'];
-const MIN_SPAWN_DISTANCE = 800;
+const MIN_SPAWN_DISTANCE = 1500;
 
 //Player Variables
 const PLAYER_WIDTH = 128;
@@ -25,7 +25,7 @@ const PLAYER_INVUL_TIME = 50;
 //Hunter Variables
 const HUNTER_SPEED_MODIFIER = 0.7;
 const HUNTER_HP = 2;
-const HUNTER_RANGE = 1000;
+const HUNTER_RANGE = 1800;
 
 const ARROW_WIDTH = 48;
 const ARROW_HEIGHT = 48;
@@ -34,12 +34,15 @@ const ARROW_PIERCE = 2;
 const ARROW_DAMAGE = 20;
 
 //Enemy Variables
+const CRAWLER_PACK_SIZE = 4;
+const SPRINTER_PACK_SIZE = 2;
+const SPITTER_PACK_SIZE = 1;
 
 //Crawler Variables
 const CRAWLER_WIDTH = 96;
 const CRAWLER_HEIGHT = 96;
 
-const CRAWLER_BASE_SPEED = 6;
+const CRAWLER_BASE_SPEED = 4;
 
 const CRAWLER_BASE_HP = 20;
 const CRAWLER_BASE_HP_INCREASE = 0.3;

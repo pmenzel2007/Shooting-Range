@@ -24,7 +24,7 @@ class Camera {
         if (this.zoomKey.ZoomIn)
             camera.zoom = Math.min(camera.zoom + 0.025, 0.7);
         if (this.zoomKey.ZoomOut)
-            camera.zoom = Math.max(camera.zoom - 0.025, 0.3);
+            camera.zoom = Math.max(camera.zoom - 0.025, 0.2);
 
         this.x = playerParams.playerX + PLAYER_WIDTH / 2 - VIEWPORT_WIDTH / 2 / this.zoom;
         this.y = playerParams.playerY + PLAYER_HEIGHT / 2 - VIEWPORT_HEIGHT / 2 / this.zoom;

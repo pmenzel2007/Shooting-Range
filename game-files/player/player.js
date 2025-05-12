@@ -40,6 +40,9 @@ class Player extends GameObject {
     updatePlayer(enemies) {
         let dx = 0, dy = 0;
 
+        const oldX = this.outerHitbox.x;
+        const oldY = this.outerHitbox.y;
+
         if (this.movement.up) dy -= 1;
         if (this.movement.down) dy += 1;
         if (this.movement.left) {
@@ -68,7 +71,11 @@ class Player extends GameObject {
         else 
             this.invulnerable = false;
         this.getEnemiesInRange(enemies);
-        console.log(this.invlunerableTime);
+
+        this.outerHitbox.x += dx * PLAYER_BASE_SPEED * (this.speedMultiplier || 1);
+        this.outerHitbox.y += dy * PLAYER_BASE_SPEED * (this.speedMultiplier || 1);
+
+        logMovementSpeed('Player', oldX, oldY, this.outerHitbox.x, this.outerHitbox.y);
     }
 
     getEnemiesInRange(enemies) {
@@ -102,6 +109,10 @@ class Player extends GameObject {
 
         if (this.hp <= 0) {
             this.alive = false;
+        }
+
+        for (const enemy of this.enemiesInRange) {
+            enemy.afflictDamage(enemy.getHp());
         }
     }
     

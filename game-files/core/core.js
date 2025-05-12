@@ -3,7 +3,6 @@ let ctx;
 let startTime;
 
 let player;
-let debugEnemy;
 let enemies = [];
 
 let time;
@@ -15,6 +14,8 @@ let spawnInterval = STARTING_SPAWN_INTERVAL;
 let lastSpawnTime;
 
 let lastSpawns = [];
+
+let spawners = [];
 
 let camera;
 
@@ -33,9 +34,7 @@ function onBodyLoad() {
 
     player = new Hunter();
 
-    debugEnemy = new Crawler(200, 200);
-    enemies.push(debugEnemy, new Crawler(400, 400), new Sprinter(2500, 2500), new Spitter(400, 2500));
-    console.log(enemies);
+    spawnSpawner();
 
     camera = new Camera();
     gameLoop();
@@ -52,12 +51,20 @@ function resizeCanvas() {
 
 function updateWorld() {
     player.updatePlayer(enemies);
-    let playerParams = player.getParams(); 
+    let playerParams = player.getParams();
+
+    for (const spawner of spawners) {
+        const newEnemies = spawner.update();
+        enemies.push(...newEnemies);
+    }
 
     for (let enemy of enemies) {
         enemy.updateEnemy(playerParams, enemies);
     }
-    enemies = enemies.filter(enemy => enemy.getAlive());
+
+    for (let i = enemies.length - 1; i >= 0; i--) {
+        if (!enemies[i].getAlive()) enemies.splice(i, 1);
+    }
 
     camera.updateCamera(playerParams);
 }
@@ -74,8 +81,10 @@ function drawWorld() {
 
     ctx.translate(-camera.getX(), -camera.getY());
 
+    ctx.lineWidth = 8;
     ctx.strokeStyle = 'white';
     ctx.strokeRect(0, 0, ARENA_WIDTH, ARENA_HEIGHT);
+    ctx.lineWidth = 1;
 
     player.drawColor(ctx, 'lime');
 
@@ -118,23 +127,21 @@ function updateTime() {
     minutes = Math.floor((time / 1000) / 60);
 }
 
-function chooseSpawnType() {
-    let choices = SPAWN_TYPES.filter(type =>
-        !(lastSpawns[0] === type && lastSpawns[1] === type)
-    );
+function spawnSpawner() {
+    spawners.push(new Spawner(player, enemies, {
+        startingInterval: STARTING_SPAWN_INTERVAL,
+        minInterval: MIN_SPAWN_INTERVAL,
+        decreaseRate: SPAWN_DECREASE_RATE,
+        spawnTypes: SPAWN_TYPES,
+        packSizes: {
+            crawler: CRAWLER_PACK_SIZE,
+            sprinter: SPRINTER_PACK_SIZE,
+            spitter: SPITTER_PACK_SIZE
+        },
+        minDistance: MIN_SPAWN_DISTANCE
+    }));
 
-    let choice = choices[Math.floor(Math.random() * choices.length)];
-    lastSpawns.push(choice);
-    if (lastSpawns.length > 2) lastSpawns.shift();
-    return choice;
 }
-
-function isFarFromPlayer(x, y, playerCenterX, playerCenterY) {
-    const dx = x - playerCenterX;
-    const dy = y - playerCenterY;
-    return Math.sqrt(dx * dx + dy * dy) > MIN_SPAWN_DISTANCE;
-}
-
 
 function gameLoop() {
     updateTime();
@@ -142,4 +149,11 @@ function gameLoop() {
     drawWorld();
     if (player.alive)
         requestAnimationFrame(gameLoop);
+}
+
+function logMovementSpeed(label, oldX, oldY, newX, newY) {
+    const dx = newX - oldX;
+    const dy = newY - oldY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    //console.log(`${label} moved: ${distance.toFixed(2)}px (dx: ${dx.toFixed(2)}, dy: ${dy.toFixed(2)})`);
 }

@@ -22,6 +22,7 @@ class Enemy extends GameObject {
 
     updateEnemy(playerParams, enemies) {
         const currentCenter = this.outerHitbox.getCenter();
+
         let distanceX = Math.abs(playerParams.playerCenterX - currentCenter.centerX);
         let distanceY = Math.abs(playerParams.playerCenterY - currentCenter.centerY);
 
@@ -71,6 +72,40 @@ class Enemy extends GameObject {
         }
     }
 
+    resolveSpawnOverlap(enemies) {
+    const maxAttempts = 10;
+    const pushAmount = 5;
+    let attempt = 0;
+
+        while (attempt < maxAttempts) {
+            let collided = false;
+
+            for (const other of enemies) {
+                if (other === this || !other.alive) continue;
+
+                if (this.innerHitbox.collidesWith(other.innerHitbox)) {
+                    collided = true;
+
+                    const dx = this.innerHitbox.centerX - other.innerHitbox.centerX;
+                    const dy = this.innerHitbox.centerY - other.innerHitbox.centerY;
+                    const dist = Math.max(1, Math.hypot(dx, dy)); // prevent divide by 0
+
+                    const offsetX = (dx / dist) * pushAmount;
+                    const offsetY = (dy / dist) * pushAmount;
+
+                    const currentCenter = this.outerHitbox.getCenter();
+                    this.outerHitbox.setCenter(currentCenter.centerX + offsetX, currentCenter.centerY + offsetY);
+                    this.innerHitbox.centerX += offsetX;
+                    this.innerHitbox.centerY += offsetY;
+                }
+            }
+
+            if (!collided) break;
+            attempt++;
+        }
+    }
+
+
     checkInnerCollision(newInnerHitbox, enemies) {
         for (const other of enemies) {
             if (other === this || !other.alive) continue;
@@ -97,6 +132,10 @@ class Enemy extends GameObject {
 
     getInRange() {
         return this.inRange;
+    }
+
+    getHp() {
+        return this.hp;
     }
 
     drawColor(ctx, color) {
