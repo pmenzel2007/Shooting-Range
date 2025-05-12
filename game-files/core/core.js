@@ -10,10 +10,17 @@ let time;
 let seconds;
 let minutes;
 
+let spawTimer = 0;
+let spawnInterval = STARTING_SPAWN_INTERVAL;
+let lastSpawnTime;
+
+let lastSpawns = [];
+
 let camera;
 
 function onBodyLoad() {
     startTime = performance.now();
+    lastSpawnTime = startTime;
 
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d')
@@ -90,6 +97,19 @@ function drawWorld() {
     const timeString = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     ctx.fillText(timeString, canvas.width - 10, 10);
     ctx.restore();
+
+    ctx.save();
+    const squareSize = 30;
+    const spacing = 5;
+    const hpX = 10;
+    const hpY = 10;
+
+    for (let i = 0; i < player.getParams().playerHp; i++) {
+        ctx.fillStyle = 'red';
+        ctx.fillRect(hpX + i * (squareSize + spacing), hpY, squareSize, squareSize);
+    }
+    ctx.restore();
+
 }
 
 function updateTime() {
@@ -98,10 +118,28 @@ function updateTime() {
     minutes = Math.floor((time / 1000) / 60);
 }
 
+function chooseSpawnType() {
+    let choices = SPAWN_TYPES.filter(type =>
+        !(lastSpawns[0] === type && lastSpawns[1] === type)
+    );
+
+    let choice = choices[Math.floor(Math.random() * choices.length)];
+    lastSpawns.push(choice);
+    if (lastSpawns.length > 2) lastSpawns.shift();
+    return choice;
+}
+
+function isFarFromPlayer(x, y, playerCenterX, playerCenterY) {
+    const dx = x - playerCenterX;
+    const dy = y - playerCenterY;
+    return Math.sqrt(dx * dx + dy * dy) > MIN_SPAWN_DISTANCE;
+}
+
 
 function gameLoop() {
     updateTime();
     updateWorld();
     drawWorld();
-    requestAnimationFrame(gameLoop);
+    if (player.alive)
+        requestAnimationFrame(gameLoop);
 }

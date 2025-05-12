@@ -11,12 +11,13 @@ class Spit extends Projectile {
         )
     }
 
-    updateProjectile() {
+    updateProjectile(playerOuterHitbox) {
         super.updateProjectile();
-
         if (!this.alive) return;
 
-        
+        if (this.outerHitbox.collidesWith(playerOuterHitbox)) {
+            player.afflictDamage();
+        }
 
     }
 }

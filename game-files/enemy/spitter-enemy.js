@@ -50,7 +50,7 @@ class Spitter extends Enemy {
     updateProjectiles(playerParams) {
         for (const spit of this.projectiles) {
             // Treat the player as the only target
-            spit.updateProjectile([playerParams]);
+            spit.updateProjectile(playerParams.playerOuterHitbox);
         }
 
         this.projectiles = this.projectiles.filter(spit => spit.alive);

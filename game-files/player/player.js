@@ -11,6 +11,11 @@ class Player extends GameObject {
         this.enemiesInRange = [];
         this.nearestEnemy = null;
 
+        this.invlunerableTime = 0;
+        this.invulnerable = false;
+
+        this.alive = true;
+
         document.addEventListener("keydown", (event) => this.handleInput(event, true));
         document.addEventListener("keyup", (event) => this.handleInput(event, false));
     }
@@ -58,7 +63,12 @@ class Player extends GameObject {
         this.outerHitbox.x = Math.max(0, Math.min(this.outerHitbox.x, ARENA_WIDTH - this.outerHitbox.width));
         this.outerHitbox.y = Math.max(0, Math.min(this.outerHitbox.y, ARENA_HEIGHT - this.outerHitbox.height));
     
+        if (this.invlunerableTime > 0) 
+            this.invlunerableTime--;
+        else 
+            this.invulnerable = false;
         this.getEnemiesInRange(enemies);
+        console.log(this.invlunerableTime);
     }
 
     getEnemiesInRange(enemies) {
@@ -82,9 +92,21 @@ class Player extends GameObject {
         this.enemiesInRange = this.enemiesInRange.map(entry => entry.enemy);
 
     }
+
+    afflictDamage() {
+        if (!this.invulnerable) {
+            this.hp--;
+            this.invulnerable = true;
+            this.invlunerableTime = PLAYER_INVUL_TIME;
+        }
+
+        if (this.hp <= 0) {
+            this.alive = false;
+        }
+    }
     
     getParams() {
-        return {playerX: this.outerHitbox.x, playerY: this.outerHitbox.y, playerCenterX: this.outerHitbox.center.centerX, playerCenterY: this.outerHitbox.center.centerY};
+        return {playerX: this.outerHitbox.x, playerY: this.outerHitbox.y, playerCenterX: this.outerHitbox.center.centerX, playerCenterY: this.outerHitbox.center.centerY, playerHp: this.hp, playerOuterHitbox: this.outerHitbox};
     }
 
     drawColor(ctx, color) {

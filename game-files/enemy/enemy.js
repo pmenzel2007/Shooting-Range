@@ -65,6 +65,10 @@ class Enemy extends GameObject {
             this.innerHitbox.centerX = newOuterHitboxY.getCenter().centerX;
             this.innerHitbox.centerY = newOuterHitboxY.getCenter().centerY;
         }
+
+        if (this.outerHitbox.collidesWith(playerParams.playerOuterHitbox)) {
+            player.afflictDamage();
+        }
     }
 
     checkInnerCollision(newInnerHitbox, enemies) {
