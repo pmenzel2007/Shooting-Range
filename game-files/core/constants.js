@@ -23,7 +23,7 @@ const PLAYER_BASE_SPEED = 12;
 const PLAYER_INVUL_TIME = 50;
 
 //Hunter Variables
-const HUNTER_SPEED_MODIFIER = 0.9;
+const HUNTER_SPEED_MODIFIER = 1.1;
 const HUNTER_HP = 2;
 const HUNTER_RANGE = 1800;
 const HUNTER_FIRING_RATE = 75;

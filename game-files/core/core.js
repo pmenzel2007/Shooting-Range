@@ -33,7 +33,7 @@ function onBodyLoad() {
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    player = new Gunner();
+    player = SELECTED_CLASS === 'gunner' ? new Gunner() : new Hunter();
 
     spawnSpawner();
 
@@ -68,6 +68,8 @@ function updateWorld() {
         enemy.updateEnemy(playerParams, enemies);
     }
 
+    console.log(enemies.length);
+
     for (let i = enemies.length - 1; i >= 0; i--) {
         if (!enemies[i].getAlive()) enemies.splice(i, 1);
     }
@@ -87,12 +89,10 @@ function drawWorld() {
 
     ctx.translate(-camera.getX(), -camera.getY());
 
-    ctx.lineWidth = 8;
-    ctx.strokeStyle = 'white';
-    ctx.strokeRect(0, 0, ARENA_WIDTH, ARENA_HEIGHT);
-    ctx.lineWidth = 1;
+    ctx.fillStyle = '#C0C08F';
+    ctx.fillRect(0, 0, ARENA_WIDTH, ARENA_HEIGHT);
 
-    player.drawColor(ctx, 'lime');
+    player.drawColor(ctx, 'black');
 
     for (const enemy of enemies) {
         enemy.drawColor(ctx, 'red');

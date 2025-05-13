@@ -1,3 +1,9 @@
+<?php
+    session_start();
+
+    $playerClass = isset($_GET['class']) ? $_GET['class'] : 'hunter';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,23 +14,27 @@
             margin: 0;
             overflow: hidden;
             background: #000;
-          }
-          
-          #game-wrapper {
+        }
+
+        #game-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             width: 100vw;
             position: relative;
-          }
-          
-          canvas {
+        }
+
+        canvas {
             image-rendering: pixelated;
             background: #000;
-          } 
-          
+        }
     </style>
+
+    <script>
+        const SELECTED_CLASS = "<?php echo $playerClass; ?>";
+    </script>
+    
     <script src="game-files/core/constants.js"></script>
     <script src="game-files/base/collisionbox.js"></script>
     <script src="game-files/base/collisionbox-circle.js"></script>
@@ -44,9 +54,9 @@
     <script src="game-files/core/camera.js"></script>
     <script src="game-files/core/core.js"></script>
 </head>
-<body onLoad="onBodyLoad()">
-  <div id="game-wrapper">
-    <canvas id="canvas"></canvas>
-  </div>
+<body onload="onBodyLoad()">
+    <div id="game-wrapper">
+        <canvas id="canvas"></canvas>
+    </div>
 </body>
 </html>

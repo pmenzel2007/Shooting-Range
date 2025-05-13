@@ -130,8 +130,8 @@ class Player extends GameObject {
         super.drawColor(ctx, color);
         ctx.beginPath();
         ctx.arc(this.outerHitbox.center.centerX, this.outerHitbox.center.centerY, this.range, 0, 2 * Math.PI, false);
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = '#00FF00';
+        ctx.lineWidth = 8;
+        ctx.strokeStyle = 'green';
         ctx.stroke();
     }
 
