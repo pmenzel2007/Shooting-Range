@@ -9,6 +9,9 @@ let time;
 let seconds;
 let minutes;
 
+let isPaused = false;
+let isGameOver = false;
+
 let spawTimer = 0;
 let spawnInterval = STARTING_SPAWN_INTERVAL;
 let lastSpawnTime;
@@ -36,6 +39,18 @@ function onBodyLoad() {
     player = SELECTED_CLASS === 'gunner' ? new Gunner() : new Hunter();
 
     spawnSpawner();
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !isGameOver) {
+            isPaused = !isPaused;
+            if (isPaused) {
+                showOverlay("Game Paused");
+            } else {
+                hideOverlay();
+                requestAnimationFrame(gameLoop);
+            }
+        }
+    });
 
     camera = new Camera();
     gameLoop();
@@ -151,13 +166,64 @@ function spawnSpawner() {
 
 }
 
+function showOverlay(title) {
+    document.getElementById('overlay-title').textContent = title;
+    document.getElementById('overlay').classList.remove('hidden');
+}
+
+function hideOverlay() {
+    document.getElementById('overlay').classList.add('hidden');
+}
+
+function resumeGame() {
+    hideOverlay();
+    isPaused = false;
+    requestAnimationFrame(gameLoop);
+}
+
+function restartGame() {
+    window.location.href = 'character-select.php';
+}
+
+function returnToMenu() {
+    window.location.href = 'main-menu.php';
+}
+
+function sendScoreToServer(score) {
+    fetch('update-score.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'score=' + encodeURIComponent(score)
+    })
+    .then(response => response.text())
+    .then(result => {
+        console.log("Server response:", result);
+    })
+    .catch(error => {
+        console.error("Error sending score:", error);
+    });
+}
+
 function gameLoop() {
     updateTime();
-    updateWorld();
-    drawWorld();
-    if (player.alive)
-        requestAnimationFrame(gameLoop);
+    
+    if (!isPaused && !isGameOver) {
+        updateWorld();
+        drawWorld();
+        if (player.alive) {
+            requestAnimationFrame(gameLoop);
+        } else {
+            showOverlay("Game Over");
+            isGameOver = true;
+            sendScoreToServer(player.getParams().playerScore);
+        }
+    } else {
+        drawWorld();
+    }
 }
+
 
 function logMovementSpeed(label, oldX, oldY, newX, newY) {
     const dx = newX - oldX;
