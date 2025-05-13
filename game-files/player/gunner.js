@@ -1,8 +1,8 @@
-class Hunter extends Player {
+class Gunner extends Player {
     constructor() {
-        super(HUNTER_HP, HUNTER_SPEED_MODIFIER, HUNTER_RANGE);
+        super(GUNNER_HP, GUNNER_SPEED_MODIFIER, GUNNER_RANGE);
         this.projectiles = [];
-        this.firingRate = HUNTER_FIRING_RATE;
+        this.firingRate = GUNNER_FIRING_RATE;
         this.cooldown = 0;
     }
 
@@ -37,7 +37,7 @@ class Hunter extends Player {
         const directionX = dx / magnitude;
         const directionY = dy / magnitude;
     
-        const projectile = new Arrow(startX, startY, { dx: directionX, dy: directionY });
+        const projectile = new Bullet(startX, startY, { dx: directionX, dy: directionY });
     
         this.projectiles.push(projectile);
     }

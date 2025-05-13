@@ -11,6 +11,10 @@ class Sprinter extends Enemy {
         super.updateEnemy(playerParams, enemies);
     }
 
+        afflictDamage(damage) {
+        super.afflictDamage(damage, SPRINTER_SCORE);
+    }
+
     drawColor(ctx, color) {
         super.drawColor(ctx, 'red');
     }

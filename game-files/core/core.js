@@ -16,6 +16,7 @@ let lastSpawnTime;
 let lastSpawns = [];
 
 let spawners = [];
+let nextSpawner = 30;
 
 let camera;
 
@@ -32,7 +33,7 @@ function onBodyLoad() {
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    player = new Hunter();
+    player = new Gunner();
 
     spawnSpawner();
 
@@ -52,6 +53,11 @@ function resizeCanvas() {
 function updateWorld() {
     player.updatePlayer(enemies);
     let playerParams = player.getParams();
+
+    if (minutes * 60 + seconds == nextSpawner) {
+        spawnSpawner();
+        nextSpawner += 30;
+    }
 
     for (const spawner of spawners) {
         const newEnemies = spawner.update();
@@ -105,6 +111,8 @@ function drawWorld() {
     ctx.textBaseline = 'top';
     const timeString = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     ctx.fillText(timeString, canvas.width - 10, 10);
+    ctx.font = '48px monospace';
+    ctx.fillText(`Score: ${player.getParams().playerScore}`, canvas.width - 10, 80);
     ctx.restore();
 
     ctx.save();

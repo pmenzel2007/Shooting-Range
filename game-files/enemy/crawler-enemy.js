@@ -11,6 +11,10 @@ class Crawler extends Enemy {
         super.updateEnemy(playerParams, enemies);
     }
 
+        afflictDamage(damage) {
+        super.afflictDamage(damage, CRAWLER_SCORE);
+    }
+
     drawColor(ctx, color) {
         super.drawColor(ctx, 'brown');
     }

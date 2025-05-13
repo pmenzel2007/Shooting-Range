@@ -6,8 +6,8 @@ const ARENA_WIDTH = 6000;
 const ARENA_HEIGHT = 6000;
 
 const STARTING_SPAWN_INTERVAL = 5000;
-const MIN_SPAWN_INTERVAL = 1000;
-const SPAWN_DECREASE_RATE = 0.95;
+const MIN_SPAWN_INTERVAL = 4000;
+const SPAWN_DECREASE_RATE = 0.98;
 const SPAWN_TYPES = ['crawler', 'sprinter', 'spitter'];
 const MIN_SPAWN_DISTANCE = 1500;
 
@@ -23,20 +23,33 @@ const PLAYER_BASE_SPEED = 12;
 const PLAYER_INVUL_TIME = 50;
 
 //Hunter Variables
-const HUNTER_SPEED_MODIFIER = 0.7;
+const HUNTER_SPEED_MODIFIER = 0.9;
 const HUNTER_HP = 2;
 const HUNTER_RANGE = 1800;
+const HUNTER_FIRING_RATE = 75;
 
 const ARROW_WIDTH = 48;
 const ARROW_HEIGHT = 48;
 const ARROW_SPEED = 48;
-const ARROW_PIERCE = 2;
+const ARROW_PIERCE = 10;
 const ARROW_DAMAGE = 20;
+
+//Gunner Variables
+const GUNNER_SPEED_MODIFIER = 1.1;
+const GUNNER_HP = 3;
+const GUNNER_RANGE = 1400;
+const GUNNER_FIRING_RATE = 8;
+
+const BULLET_WIDTH = 48;
+const BULLET_HEIGHT = 48;
+const BULLET_SPEED = 96;
+const BULLET_PIERCE = 1;
+const BULLET_DAMAGE = 4;
 
 //Enemy Variables
 const CRAWLER_PACK_SIZE = 4;
-const SPRINTER_PACK_SIZE = 2;
-const SPITTER_PACK_SIZE = 1;
+const SPRINTER_PACK_SIZE = 1;
+const SPITTER_PACK_SIZE = 2;
 
 //Crawler Variables
 const CRAWLER_WIDTH = 96;
@@ -47,14 +60,18 @@ const CRAWLER_BASE_SPEED = 4;
 const CRAWLER_BASE_HP = 20;
 const CRAWLER_BASE_HP_INCREASE = 0.3;
 
+const CRAWLER_SCORE = 30;
+
 //Sprinter Variables
 const SPRINTER_WIDTH = 72;
 const SPRINTER_HEIGHT = 72;
 
-const SPRINTER_BASE_SPEED = 12;
+const SPRINTER_BASE_SPEED = 10;
 
 const SPRINTER_BASE_HP = 10;
 const SPRINTER_BASE_HP_INCREASE = 0.1;
+
+const SPRINTER_SCORE = 120;
 
 //Spitter Variables
 const SPITTER_WIDTH = 96;
@@ -64,6 +81,8 @@ const SPITTER_BASE_SPEED = 4;
 
 const SPITTER_BASE_HP = 10;
 const SPITTER_BASE_HP_INCREASE = 0.1;
+
+const SPITTER_SCORE = 60;
 
 const SPITTER_RANGE = 700;
 

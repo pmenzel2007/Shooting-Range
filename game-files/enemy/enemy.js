@@ -116,10 +116,12 @@ class Enemy extends GameObject {
         return false;
     }
 
-    afflictDamage(damage) {
+    afflictDamage(damage, scorePoints) {
         this.hp -= damage;
-        if (this.hp <= 0)
+        if (this.hp <= 0) {
             this.alive = false;
+            player.giveScorePoints(scorePoints);
+        }
     }
 
     getAlive() {

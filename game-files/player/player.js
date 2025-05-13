@@ -2,6 +2,8 @@ class Player extends GameObject {
     constructor(hp, speedMultiplier, range) {
         super(PLAYER_SPAWN_X, PLAYER_SPAWN_Y, PLAYER_WIDTH, PLAYER_HEIGHT);
 
+        this.score = 0;
+
         this.speedMultiplier = speedMultiplier;
         this.hp = hp;
         this.range = range;
@@ -115,9 +117,13 @@ class Player extends GameObject {
             enemy.afflictDamage(enemy.getHp());
         }
     }
+
+    giveScorePoints(ScorePoints) {
+        this.score += ScorePoints;
+    }
     
     getParams() {
-        return {playerX: this.outerHitbox.x, playerY: this.outerHitbox.y, playerCenterX: this.outerHitbox.center.centerX, playerCenterY: this.outerHitbox.center.centerY, playerHp: this.hp, playerOuterHitbox: this.outerHitbox};
+        return {playerX: this.outerHitbox.x, playerY: this.outerHitbox.y, playerCenterX: this.outerHitbox.center.centerX, playerCenterY: this.outerHitbox.center.centerY, playerHp: this.hp, playerOuterHitbox: this.outerHitbox, playerScore: this.score};
     }
 
     drawColor(ctx, color) {

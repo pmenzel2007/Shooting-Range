@@ -56,6 +56,10 @@ class Spitter extends Enemy {
         this.projectiles = this.projectiles.filter(spit => spit.alive);
     }
 
+    afflictDamage(damage) {
+        super.afflictDamage(damage, SPITTER_SCORE);
+    }
+
     getProjectiles() {
         return this.projectiles;
     }
