@@ -1,10 +1,11 @@
 class Spitter extends Enemy {
-    constructor(x, y) {
+    constructor(x, y, hpIncreaseAmount) {
         super(x, y, 
             SPITTER_WIDTH, SPITTER_HEIGHT, 
             SPITTER_BASE_SPEED, 
             SPITTER_BASE_HP,
-            SPITTER_BASE_HP_INCREASE);
+            SPITTER_BASE_HP_INCREASE,
+            hpIncreaseAmount);
 
         this.range = SPITTER_RANGE;
         this.projectiles = [];

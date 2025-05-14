@@ -28,21 +28,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (
             isset($_POST['reg_username']) &&
             isset($_POST['reg_displayname']) &&
-            isset($_POST['reg_password'])
+            isset($_POST['reg_password']) &&
+            isset($_POST['reg_password_again'])
         ) {
-            $stmt = $pdo->prepare("SELECT * FROM user WHERE username = :username");
-            $stmt->execute(['username' => $_POST['reg_username']]);
-            if ($stmt->fetch()) {
-                $registerError = "Username already exists!";
+            if ($_POST['reg_password'] !== $_POST['reg_password_again']) {
+                $registerError = "Passwords must be the same";
             } else {
-                $hashedPassword = password_hash($_POST['reg_password'], PASSWORD_DEFAULT);
-                $stmt = $pdo->prepare("INSERT INTO user (username, displayname, password) VALUES (:username, :displayname, :password)");
-                $stmt->execute([
-                    'username' => $_POST['reg_username'],
-                    'displayname' => $_POST['reg_displayname'],
-                    'password' => $hashedPassword
-                ]);
-                $registerSuccess = "Registration successful! Please log in.";
+                $stmt = $pdo->prepare("SELECT * FROM user WHERE username = :username");
+                $stmt->execute(['username' => $_POST['reg_username']]);
+                if ($stmt->fetch()) {
+                    $registerError = "Username already exists!";
+                } else {
+                    $hashedPassword = password_hash($_POST['reg_password'], PASSWORD_DEFAULT);
+                    $stmt = $pdo->prepare("INSERT INTO user (username, displayname, password) VALUES (:username, :displayname, :password)");
+                    $stmt->execute([
+                        'username' => $_POST['reg_username'],
+                        'displayname' => $_POST['reg_displayname'],
+                        'password' => $hashedPassword
+                    ]);
+                    $registerSuccess = "Registration successful! Please log in.";
+                }
             }
         }
     }
@@ -173,6 +178,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" name="reg_username" placeholder="Username" required>
             <input type="text" name="reg_displayname" placeholder="Display Name" required>
             <input type="password" name="reg_password" placeholder="Password" required>
+            <input type="password" name="reg_password_again" placeholder="Enter Password again" required>
             <button type="submit">Register</button>
         </form>
 

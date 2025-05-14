@@ -65,7 +65,11 @@
 <body>
 
 <div class="menu-container">
-    <h1>Main Menu</h1>
+    <h1>Main Menu <br>
+        <?php
+            echo "Welcome, " . $_SESSION['displayname'];
+        ?>
+</h1>
     <form action="character-select.php" method="get">
         <button class="menu-button">Start Game</button>
     </form>

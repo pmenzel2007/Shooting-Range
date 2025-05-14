@@ -1,14 +1,14 @@
 let enemyId = 0;
 
 class Enemy extends GameObject {
-    constructor(x, y, width, height, speed, hp, hpIncrease) {
+    constructor(x, y, width, height, speed, hp, hpIncrease, hpIncreaseAmount) {
         super(x, y, width, height);
 
         this.id = enemyId++;
         this.baseSpeed = speed;
         this.speedMultiplier = 1;
-        this.hp = hp;
         this.hpIncrease = hpIncrease;
+        this.hp = hp + hpIncreaseAmount * this.hpIncrease;
 
         this.inRange = false;
         this.alive = true;

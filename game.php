@@ -13,7 +13,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tiny Game</title>
+    <title>Shooting Range</title>
     <style>
         body {
             margin: 0;

@@ -75,15 +75,13 @@ function updateWorld() {
     }
 
     for (const spawner of spawners) {
-        const newEnemies = spawner.update();
+        const newEnemies = spawner.update(minutes * 60 + seconds);
         enemies.push(...newEnemies);
     }
 
     for (let enemy of enemies) {
         enemy.updateEnemy(playerParams, enemies);
     }
-
-    console.log(enemies.length);
 
     for (let i = enemies.length - 1; i >= 0; i--) {
         if (!enemies[i].getAlive()) enemies.splice(i, 1);

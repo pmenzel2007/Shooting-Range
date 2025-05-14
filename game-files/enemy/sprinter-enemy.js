@@ -1,10 +1,11 @@
 class Sprinter extends Enemy {
-    constructor(x, y) {
+    constructor(x, y, hpIncreaseAmount) {
         super(x, y, 
             SPRINTER_WIDTH, SPRINTER_HEIGHT, 
             SPRINTER_BASE_SPEED, 
             SPRINTER_BASE_HP,
-            SPRINTER_BASE_HP_INCREASE);
+            SPRINTER_BASE_HP_INCREASE,
+            hpIncreaseAmount);
     }
 
     updateEnemy(playerParams, enemies) {

@@ -1,4 +1,7 @@
-class Spawner {
+let nextHpIncrease = 10;
+let hpIncreaseAmount = 0;
+
+class Spawner {    
     constructor(player, enemies, parameters) {
         this.player = player;
         this.enemies = enemies;
@@ -15,9 +18,14 @@ class Spawner {
         this.minSpawnDistance = parameters.minDistance;
     }
 
-    update() {
+    update(currentSecond) {
         const currentTime = performance.now();
         const spawned = [];
+
+        if (currentSecond === nextHpIncrease + 10) {
+            hpIncreaseAmount++;
+            nextHpIncrease += 10;
+        }
 
         if (currentTime - this.lastSpawnTime >= this.spawnInterval) {
             const type = this.chooseSpawnType();
@@ -52,8 +60,9 @@ class Spawner {
 
     spawnEnemies(type) {
     const groupSize = this.packSizes[type];
-    const playerParams = this.player.getParams();
     const result = [];
+
+    console.log(hpIncreaseAmount);
 
     let spawnX, spawnY;
         do {
@@ -68,9 +77,9 @@ class Spawner {
             const y = Math.max(0, Math.min(ARENA_HEIGHT, spawnY + offsetY));
 
             let enemy;
-            if (type === 'crawler') enemy = new Crawler(x, y);
-            else if (type === 'sprinter') enemy = new Sprinter(x, y);
-            else if (type === 'spitter') enemy = new Spitter(x, y);
+            if (type === 'crawler') enemy = new Crawler(x, y, hpIncreaseAmount);
+            else if (type === 'sprinter') enemy = new Sprinter(x, y, hpIncreaseAmount);
+            else if (type === 'spitter') enemy = new Spitter(x, y, hpIncreaseAmount);
 
             result.push(enemy);
             this.enemies.push(enemy);

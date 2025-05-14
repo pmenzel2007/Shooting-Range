@@ -28,11 +28,11 @@ const HUNTER_HP = 2;
 const HUNTER_RANGE = 1800;
 const HUNTER_FIRING_RATE = 75;
 
-const ARROW_WIDTH = 48;
-const ARROW_HEIGHT = 48;
-const ARROW_SPEED = 48;
+const ARROW_WIDTH = 56;
+const ARROW_HEIGHT = 56;
+const ARROW_SPEED = 108;
 const ARROW_PIERCE = 10;
-const ARROW_DAMAGE = 20;
+const ARROW_DAMAGE = 30;
 
 //Gunner Variables
 const GUNNER_SPEED_MODIFIER = 1.1;
