@@ -84,83 +84,9 @@ $user = $stmt->fetch();
 <head>
     <meta charset="UTF-8">
     <title>Settings</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #222;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .settings-container {
-            background-color: #333;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.6);
-            width: 400px;
-        }
-
-        h2 {
-            margin-bottom: 20px;
-            text-align: center;
-            color: #F5F5DC;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            background-color: #444;
-            border: 1px solid #555;
-            border-radius: 6px;
-            color: #fff;
-            font-size: 16px;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .message {
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        .success {
-            color: #66BB6A;
-        }
-
-        .error {
-            color: #FF6666;
-        }
-
-        .back-link {
-            margin-top: 20px;
-            display: block;
-            text-align: center;
-            color: #aaa;
-            text-decoration: none;
-        }
-
-        .back-link:hover {
-            color: #fff;
-        }
-
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="settings">
 
 <div class="settings-container">
     <h2>Account Settings</h2>

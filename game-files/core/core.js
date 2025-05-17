@@ -166,11 +166,13 @@ function spawnSpawner() {
 
 function showOverlay(title) {
     document.getElementById('overlay-title').textContent = title;
-    document.getElementById('overlay').classList.remove('hidden');
+    document.getElementById('overlay').classList.add('active');
+    //document.getElementById('overlay').classList.remove('hidden');
 }
 
 function hideOverlay() {
-    document.getElementById('overlay').classList.add('hidden');
+    document.getElementById('overlay').classList.remove('active');
+    //document.getElementById('overlay').classList.add('hidden');
 }
 
 function resumeGame() {

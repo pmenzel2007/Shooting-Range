@@ -1,0 +1,233 @@
+/* ========== GLOBAL STYLES ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #111;
+  color: #f1f1f1;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+a {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+button {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #666;
+}
+
+/* ========== LOGIN / REGISTER PAGE ========== */
+body.login .container {
+  background-color: #222;
+  padding: 40px;
+  width: 350px;
+  border-radius: 10px;
+  margin: 80px auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+body.login h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+body.login input[type="text"],
+body.login input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  background: #333;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: #fff;
+}
+
+body.login .form-toggle {
+  margin-top: 15px;
+  text-align: center;
+}
+
+body.login .error-message {
+  color: #ff5252;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* ========== MAIN MENU PAGE ========== */
+body.menu .menu-container {
+  background-color: #333;
+  padding: 40px 60px;
+  margin: 100px auto;
+  border-radius: 12px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+body.menu h1 {
+  color: #f5f5dc;
+  margin-bottom: 40px;
+}
+
+body.menu .menu-container button {
+  display: block;
+  width: 100%;
+  margin: 15px 0;
+}
+
+/* ========== CHARACTER SELECTION PAGE ========== */
+body.character-select h1 {
+  color: #f5f5dc;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+body.character-select .character-select {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  padding-bottom: 50px;
+}
+
+body.character-select .character {
+  text-align: center;
+  background-color: #222;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+}
+
+body.character-select .character button {
+  margin-top: 15px;
+  padding: 10px 16px;
+  font-size: 16px;
+}
+
+/* ========== GAME PAGE ========== */
+body.game canvas {
+  display: block;
+  margin: auto;
+  image-rendering: pixelated;
+  background: #000;
+}
+
+/* overlay default (hidden) */
+#overlay {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:10;
+}
+
+/* hidden still means display:none */
+#overlay.hidden { display:none; }
+
+/* active always wins — specificity+important */
+#overlay.active { 
+  display:flex !important;   /* <— force it */
+}
+
+
+
+body.game #overlay h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+body.game #overlay button {
+  margin: 10px;
+}
+
+/* ========== HIGHSCORES PAGE ========== */
+body.highscores table {
+  width: 100%;
+  max-width: 600px;
+  margin: 60px auto;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #222;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+body.highscores th {
+  background-color: #333;
+  color: #4caf50;
+  padding: 12px 20px;
+  text-align: left;
+}
+
+body.highscores td {
+  padding: 12px 20px;
+  border-bottom: 1px solid #444;
+}
+
+body.highscores h1 {
+  text-align: center;
+  margin: 40px 0 20px;
+  color: #f5f5dc;
+}
+
+/* ========== SETTINGS PAGE ========== */
+body.settings {
+  background-color: #111;
+  font-family: 'Segoe UI', sans-serif;
+  color: #f1f1f1;
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+body.settings .settings-container {
+  background-color: #222;
+  padding: 40px 50px;
+  border-radius: 12px;
+  width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+body.settings h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #f5f5dc;
+}
+
+body.settings label {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  color: #ccc;
+}
+
+body.settings select,
+body.settings input[type="range"] {
+  width: 100%;
+  padding: 8px;
+  background-color: #333;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: #fff;
+}
+
+body.settings button {
+  margin-top: 30px;
+  width: 100%;
+}
