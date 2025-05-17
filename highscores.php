@@ -8,7 +8,6 @@ if (!isset($_SESSION["username"])) {
 
 require_once "db.php";
 
-// Fetch users ordered by highscore (highest first)
 $stmt = $pdo->query("SELECT displayname, highscore FROM user ORDER BY highscore DESC");
 $users = $stmt->fetchAll();
 ?>

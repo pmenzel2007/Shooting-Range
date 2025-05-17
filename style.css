@@ -137,15 +137,11 @@ body.game canvas {
   z-index:10;
 }
 
-/* hidden still means display:none */
 #overlay.hidden { display:none; }
 
-/* active always wins — specificity+important */
 #overlay.active { 
-  display:flex !important;   /* <— force it */
+  display:flex !important;
 }
-
-
 
 body.game #overlay h2 {
   margin-bottom: 20px;

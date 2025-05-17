@@ -2,7 +2,6 @@
 session_start();
 require_once "db.php";
 
-// Redirect to login if not logged in
 if (!isset($_SESSION["username"])) {
     header("Location: index.php");
     exit();
@@ -12,19 +11,16 @@ $currentUsername = $_SESSION["username"];
 $success = "";
 $error = "";
 
-// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $newUsername = $_POST["new_username"];
     $newDisplayname = $_POST["new_displayname"];
     $newPassword = $_POST["new_password"];
     $confirmPassword = $_POST["confirm_password"];
 
-    // Check password match (only if new password is provided)
     if (!empty($newPassword) && $newPassword !== $confirmPassword) {
         $error = "Passwords do not match.";
     } else {
         try {
-            // Check if new username already exists (and it's not the current one)
             if ($newUsername !== $currentUsername) {
                 $stmt = $pdo->prepare("SELECT COUNT(*) FROM user WHERE username = :username");
                 $stmt->execute(["username" => $newUsername]);
@@ -34,32 +30,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
 
             if (empty($error)) {
-                // Build SQL dynamically
                 $fields = ["displayname = :displayname"];
                 $params = [
                     "displayname" => $newDisplayname,
                     "username" => $currentUsername
                 ];
 
-                // Username update
                 if ($newUsername !== $currentUsername) {
                     $fields[] = "username = :new_username";
                     $params["new_username"] = $newUsername;
                 }
 
-                // Password update
                 if (!empty($newPassword)) {
                     $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
                     $fields[] = "password = :password";
                     $params["password"] = $hashedPassword;
                 }
 
-                // Final update query
                 $sql = "UPDATE user SET " . implode(", ", $fields) . " WHERE username = :username";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute($params);
 
-                // Update session if username changed
                 if ($newUsername !== $currentUsername) {
                     $_SESSION["username"] = $newUsername;
                 }
@@ -72,7 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-// Get current user info
 $stmt = $pdo->prepare("SELECT * FROM user WHERE username = :username");
 $stmt->execute(["username" => $_SESSION["username"]]);
 $user = $stmt->fetch();
